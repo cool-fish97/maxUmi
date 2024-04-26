@@ -1,15 +1,4 @@
-import { defineConfig } from '@umijs/max';
-
-export default defineConfig({
-  antd: {},
-  access: {},
-  model: {},
-  initialState: {},
-  request: {},
-  layout: {
-    title: '@umijs/max',
-  },
-  routes: [
+export const routes = [
     {
       path: '/',
       redirect: '/home',
@@ -29,7 +18,4 @@ export default defineConfig({
       path: '/table',
       component: './Table',
     },
-  ],
-  npmClient: 'npm',
-});
-
+  ]
