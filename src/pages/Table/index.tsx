@@ -169,6 +169,7 @@ const TableList: React.FC<unknown> = () => {
             sorter,
             filter,
           });
+          console.log(data,'data')
           return {
             data: data?.list || [],
             success,
