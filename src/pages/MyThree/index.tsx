@@ -2,11 +2,12 @@
  * @Author: lyhao coolyee07@163.com
  * @Date: 2024-06-19 16:06:07
  * @LastEditors: lyhao coolyee07@163.com
- * @LastEditTime: 2024-07-11 09:23:19
+ * @LastEditTime: 2024-08-07 16:28:27
  * @FilePath: \maxUmi\src\pages\MyThree\index.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE·1    
  */
 import React, { useEffect } from 'react';
+// @ts-ignore
 import * as THREE from 'three';
 // import styles from './index.less'
 const MyThree: React.FC = () => {
@@ -26,7 +27,8 @@ const MyThree: React.FC = () => {
     1000,
   );
   // 创建渲染器对象
-  const renderer = new THREE.WebGLRenderer();
+  const renderer = new THREE.WebGLRenderer({alpha:true});
+  renderer.setClearColor('lightblue')
   renderer.setSize(width, height); //设置three.js渲染区域的尺寸(像素px)
   // 创建几何体
   const geometry = new THREE.BoxGeometry(100, 100, 100);
@@ -55,9 +57,18 @@ const MyThree: React.FC = () => {
     renderer.render(scene, camera);
   };
   useEffect(() => {
-    document.getElementById('webgl').appendChild(renderer.domElement);
-    animateRender();
+    const webgl = document.getElementById('webgl');
+    if (webgl) {
+      webgl.appendChild(renderer.domElement);
+      animateRender();
+    }
+    return () => {
+      if (webgl) {
+        webgl.removeChild(renderer.domElement);
+      }
+    };
   }, []);
-  return <div id="webgl"></div>;
+  return <div id="webgl">
+  </div>;
 };
 export default MyThree;
